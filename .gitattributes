@@ -1,0 +1,12 @@
+# Normalise line endings for text files.
+* text=auto eol=lf
+
+# Binary reference material.
+*.pdf binary
+*.jpg binary
+*.png binary
+*.ico binary
+
+# The product briefs use Markdown hard line breaks (two trailing spaces).
+# They are preserved verbatim, so trailing-space whitespace checks are off for them.
+docs/product-briefs/*.md whitespace=-trailing-space

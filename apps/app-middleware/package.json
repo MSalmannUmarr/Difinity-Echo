@@ -1,0 +1,26 @@
+{
+  "name": "@difinity-echo/app-middleware",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Echo Application Middleware skeleton: authentication boundary, immutable actor/tenant context, authorisation, Query API client, request validation and response mapping. Never accesses databases. Milestone 0: health and readiness only.",
+  "type": "module",
+  "engines": {
+    "node": "24.19.0"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run",
+    "start": "node --env-file-if-exists=.env dist/app/main/main.js"
+  },
+  "dependencies": {
+    "@difinity-echo/contracts": "workspace:*",
+    "@difinity-echo/observability-contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
+  }
+}

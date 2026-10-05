@@ -1,0 +1,53 @@
+# Dependencies
+node_modules/
+.pnpm-store/
+.pnp
+.pnp.*
+
+# Build output
+dist/
+.next/
+# Next.js static export / build folders (anchored: ports/out must stay tracked)
+/apps/*/out/
+/apps/*/build/
+.turbo/
+*.tsbuildinfo
+next-env.d.ts
+
+# Test output
+coverage/
+test-results/
+playwright-report/
+
+# Environment and secrets (examples are committed; real values are not)
+.env
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+
+# Local runtime state created by scripts/bootstrap.sh
+.local/
+
+# Local infrastructure data
+infra/local/data/
+infra/local/.env
+
+# Logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+
+# Editor and OS metadata
+.DS_Store
+Thumbs.db
+.idea/
+.vscode/*
+!.vscode/extensions.json
+*.swp
+*.swo
+*~

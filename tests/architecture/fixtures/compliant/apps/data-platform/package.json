@@ -1,0 +1,7 @@
+{
+  "name": "@difinity-echo/data-platform",
+  "dependencies": {
+    "pg": "^8.0.0",
+    "@difinity-echo/contracts": "workspace:*"
+  }
+}

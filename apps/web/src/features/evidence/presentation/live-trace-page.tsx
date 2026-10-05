@@ -1,0 +1,18 @@
+"use client"
+
+import { ArrowDown, ExternalLink, LockKeyhole, Search, ShieldCheck, X } from "lucide-react"
+import { useState } from "react"
+import type { EvidenceTrace } from "../data/mock-evidence-client"
+import type { TraceEntity } from "@/src/shared/core/models"
+import { StatusBadge } from "@/src/shared/design/status-badge"
+
+export function LiveTracePage({ trace, query, onSearch, onHealth }: { trace: EvidenceTrace | null; query: string; onSearch: (query: string) => void; onHealth: () => void }) {
+  const [value, setValue] = useState(query)
+  const [selected, setSelected] = useState<TraceEntity | null>(null)
+  return <div className="page-stack"><header className="page-header"><div><p className="page-kicker">Causal provenance</p><h1>What evidence produced this result?</h1><p>Inspect one record from AI activity through change, delivery, quality and customer-outcome windows.</p></div></header>
+    <form className="trace-search" onSubmit={(event) => { event.preventDefault(); onSearch(value) }}><label htmlFor="trace-query">Ticket, pull request, commit or deployment</label><div><Search/><input id="trace-query" value={value} onChange={(event) => setValue(event.target.value)} placeholder="Try PAY-1427"/><button className="button-primary">Find trace</button></div><span>Try PAY-1427, #382, e942bd or checkout-api v8.4.1</span></form>
+    {!trace ? <section className="state-panel"><Search/><p className="state-kicker">No trace selected</p><h2>Search a seeded identifier to inspect its lineage.</h2><p>Echo preserves source identity and relationship evidence without storing developer content.</p></section> : <div className="trace-layout"><section className="lineage-panel"><div className="section-heading compact"><div><h2>Evidence lineage</h2><p>{trace.entities.length} records · {trace.relationships.length} typed relationships</p></div><span className="method-note"><ShieldCheck/>Canonical fact graph</span></div><div className="lineage">{trace.entities.map((entity, index) => { const relationship = trace.relationships[index]; return <div key={entity.id} className="lineage-item"><button onClick={() => setSelected(entity)} className="trace-node"><span>{entity.kind}</span><strong>{entity.title}</strong><small>{entity.source} · {entity.timestamp}</small></button>{relationship && <div className="trace-edge"><ArrowDown/><StatusBadge state={relationship.evidence}/><span>{relationship.method}</span>{(relationship.evidence === "Inferred" || relationship.evidence === "Conflicted") && <button onClick={onHealth}>Inspect weakness</button>}</div>}</div>})}</div></section>
+      <aside className="privacy-panel"><LockKeyhole/><p className="page-kicker">Privacy boundary</p><h2>Content protected</h2><p>Echo stores evidence metadata, not prompt or source-code contents.</p><ul><li>No prompt or response bodies</li><li>No source code or raw diffs</li><li>No shell output or keystrokes</li></ul></aside></div>}
+    {selected && <div className="drawer-overlay" onClick={() => setSelected(null)}><aside className="detail-drawer" onClick={(event) => event.stopPropagation()}><div className="drawer-title"><div><span>{selected.kind}</span><h2>{selected.title}</h2></div><button onClick={() => setSelected(null)} aria-label="Close inspector"><X/></button></div><StatusBadge state={trace?.relationships.find((rel) => rel.from === selected.id || rel.to === selected.id)?.evidence ?? "Direct"}/><dl>{Object.entries(selected.metadata).map(([key, item]) => <div key={key}><dt>{key}</dt><dd>{item}</dd></div>)}</dl><button className="button-outline" type="button" disabled title="External systems are not connected in this prototype">Source record unavailable in mock <ExternalLink/></button></aside></div>}
+  </div>
+}

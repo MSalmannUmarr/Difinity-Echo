@@ -1,0 +1,29 @@
+// GENERATED FILE - DO NOT EDIT. Source: schemas/failure-classification.v1.schema.json
+/* eslint-disable */
+
+/**
+ * Safe, typed classification of an operational failure. Raw causes stay in access-controlled diagnostics and are never exposed through this contract.
+ */
+export type FailureClassification =
+  | "timeout"
+  | "connection-refused"
+  | "unreachable"
+  | "unexpected-response"
+  | "misconfigured"
+  | "unexpected-defect"
+
+export const failureClassificationSchema = {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.difinity.ai/echo/observability/failure-classification.v1.schema.json",
+  "title": "FailureClassification",
+  "description": "Safe, typed classification of an operational failure. Raw causes stay in access-controlled diagnostics and are never exposed through this contract.",
+  "type": "string",
+  "enum": [
+    "timeout",
+    "connection-refused",
+    "unreachable",
+    "unexpected-response",
+    "misconfigured",
+    "unexpected-defect"
+  ]
+} as const

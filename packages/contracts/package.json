@@ -1,0 +1,44 @@
+{
+  "name": "@difinity-echo/contracts",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Versioned, language-neutral Echo contracts (JSON Schema) with schema-derived TypeScript types and runtime validation.",
+  "type": "module",
+  "engines": {
+    "node": "24.19.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./schemas/*": "./schemas/*",
+    "./codegen": "./bin/generate-contract-types.mjs"
+  },
+  "bin": {
+    "generate-contract-types": "./bin/generate-contract-types.mjs"
+  },
+  "files": [
+    "dist",
+    "schemas",
+    "bin"
+  ],
+  "scripts": {
+    "generate": "node ./bin/generate-contract-types.mjs schemas src/generated",
+    "generate:check": "node ./bin/generate-contract-types.mjs schemas src/generated --check",
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "ajv": "^8.20.0",
+    "ajv-formats": "^3.0.1"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "json-schema-to-typescript": "^16.0.0",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
+  }
+}

@@ -1,0 +1,38 @@
+{
+  "name": "difinity-echo",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "description": "Difinity Echo monorepo: Echo Edge, Core Data Platform, Application Middleware and Web.",
+  "packageManager": "pnpm@11.19.0",
+  "engines": {
+    "node": "24.19.0"
+  },
+  "scripts": {
+    "bootstrap": "./scripts/bootstrap.sh",
+    "verify": "./scripts/verify.sh",
+    "demo": "./scripts/demo.sh",
+    "format": "prettier --write .",
+    "format:check": "prettier --check .",
+    "lint": "pnpm -r run lint && eslint tests vitest.config.ts eslint.config.mjs",
+    "typecheck": "pnpm -r run typecheck && tsc -p tsconfig.json --noEmit",
+    "build": "pnpm -r run build",
+    "build:packages": "pnpm --filter \"./packages/**\" run build",
+    "test": "pnpm -r run test",
+    "test:architecture": "vitest run --config vitest.config.ts --project architecture",
+    "test:contracts": "vitest run --config vitest.config.ts --project contracts",
+    "test:e2e": "vitest run --config vitest.config.ts --project end-to-end"
+  },
+  "devDependencies": {
+    "@difinity-echo/contracts": "workspace:*",
+    "@difinity-echo/observability-contracts": "workspace:*",
+    "@difinity-echo/test-fixtures": "workspace:*",
+    "@eslint/js": "^9",
+    "@types/node": "^24",
+    "eslint": "^9",
+    "prettier": "^3.8.3",
+    "typescript": "^5.9.3",
+    "typescript-eslint": "^8",
+    "vitest": "^5.0.0"
+  }
+}

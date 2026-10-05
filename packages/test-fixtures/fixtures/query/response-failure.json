@@ -1,0 +1,10 @@
+{
+  "schemaVersion": "0",
+  "correlationId": "synthetic-correlation-0006",
+  "outcome": "failure",
+  "error": {
+    "code": "dependency-unavailable",
+    "message": "The analytical store is temporarily unavailable.",
+    "correlationId": "synthetic-correlation-0006"
+  }
+}

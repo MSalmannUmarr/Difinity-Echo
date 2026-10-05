@@ -1,0 +1,19 @@
+# Generated, vendored or binary content
+node_modules/
+dist/
+.next/
+coverage/
+.local/
+pnpm-lock.yaml
+packages/*/src/generated/
+
+# Reference documents are preserved verbatim from their canonical sources.
+docs/reference/
+docs/product-briefs/
+DESIGN.md
+AGENTS.md
+
+# The existing frontend predates repository-wide formatting (104 files are
+# not Prettier-clean). It keeps its own .prettierrc and is reformatted in a
+# dedicated change, not mixed into the monorepo setup. See docs/adr/0002.
+apps/web/

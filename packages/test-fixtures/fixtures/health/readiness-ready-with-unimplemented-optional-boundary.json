@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1",
+  "service": {
+    "component": "data-platform",
+    "version": "0.0.0"
+  },
+  "status": "ready",
+  "checkedAt": "2026-01-15T09:30:00Z",
+  "dependencies": [
+    {
+      "name": "postgresql",
+      "kind": "infrastructure",
+      "required": false,
+      "status": "reachable"
+    },
+    {
+      "name": "admission-api",
+      "kind": "boundary",
+      "required": false,
+      "status": "not-implemented"
+    }
+  ]
+}

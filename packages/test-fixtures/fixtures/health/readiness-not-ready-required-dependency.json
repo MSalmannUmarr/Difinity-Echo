@@ -1,0 +1,18 @@
+{
+  "schemaVersion": "1",
+  "service": {
+    "component": "app-middleware",
+    "version": "0.0.0"
+  },
+  "status": "not-ready",
+  "checkedAt": "2026-01-15T09:30:00Z",
+  "dependencies": [
+    {
+      "name": "query-api",
+      "kind": "service",
+      "required": true,
+      "status": "not-ready",
+      "failure": "connection-refused"
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "@difinity-echo/test-fixtures",
+  "version": "0.0.0",
+  "private": true,
+  "description": "Safe, synthetic contract fixtures for Echo: valid/invalid canonical events, prohibited-content, tenant-isolation and health examples. Contains no real secrets, source code, customer data or personal information.",
+  "type": "module",
+  "engines": {
+    "node": "24.19.0"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "default": "./dist/index.js"
+    },
+    "./fixtures/*": "./fixtures/*"
+  },
+  "files": [
+    "dist",
+    "fixtures"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.build.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit",
+    "lint": "eslint .",
+    "test": "vitest run"
+  },
+  "dependencies": {
+    "@difinity-echo/contracts": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "^24",
+    "typescript": "^5.9.3",
+    "vitest": "^5.0.0"
+  }
+}

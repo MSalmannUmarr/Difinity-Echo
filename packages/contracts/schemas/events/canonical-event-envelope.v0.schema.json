@@ -1,0 +1,111 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+  "title": "CanonicalEventEnvelope",
+  "description": "DRAFT (v0, Milestone 0 foundation). Structural envelope for a provider-neutral canonical event. The concrete event catalogue, payload schemas and privacy allowlist are owned by Milestone 1 (M1-01, M1-02) and require review by all three divisions. Deliberately has NO tenant field: tenancy is derived at authenticated admission, never trusted from the payload. The envelope is closed (additionalProperties: false) so unexpected fields, including prohibited content, are rejected rather than forwarded.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schemaVersion",
+    "eventId",
+    "eventType",
+    "occurredAt",
+    "idempotencyKey",
+    "collector",
+    "policyVersion",
+    "attributes"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0"
+    },
+    "eventId": {
+      "description": "Stable identifier of the logical event (UUID).",
+      "type": "string",
+      "format": "uuid"
+    },
+    "eventType": {
+      "description": "Namespaced event type. The permitted catalogue is an M1 decision; only the syntax is fixed here.",
+      "type": "string",
+      "pattern": "^[a-z][a-z0-9]*(\\.[a-z][a-z0-9-]*){1,4}$"
+    },
+    "occurredAt": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "idempotencyKey": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{15,127}$"
+    },
+    "collector": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["name", "version"],
+      "properties": {
+        "name": {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9-]{1,63}$"
+        },
+        "version": {
+          "type": "string",
+          "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+(-[0-9A-Za-z.-]+)?$"
+        }
+      }
+    },
+    "policyVersion": {
+      "description": "Version of the local privacy allowlist policy applied before persistence.",
+      "type": "string",
+      "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$"
+    },
+    "attributes": {
+      "description": "Allowlisted metadata. v0 accepts only short scalar values keyed by identifiers. Attribute names that denote default-prohibited outbound content (consolidated brief \u00a713) are rejected as defence in depth. This denylist is NOT the privacy boundary: the local allowlist processor (M1-02) must remove prohibited content before persistence, because prohibited content placed in an innocuous attribute value cannot be detected structurally.",
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[a-z][a-zA-Z0-9]{0,63}$",
+        "not": {
+          "enum": [
+            "prompt",
+            "prompts",
+            "response",
+            "responses",
+            "completion",
+            "reasoning",
+            "thought",
+            "thoughts",
+            "sourceCode",
+            "code",
+            "diff",
+            "rawDiff",
+            "patch",
+            "filePath",
+            "path",
+            "branch",
+            "branchName",
+            "command",
+            "rawCommand",
+            "toolArguments",
+            "toolArgs",
+            "toolResult",
+            "toolOutput",
+            "errorMessage",
+            "secret",
+            "token",
+            "apiKey",
+            "password",
+            "env",
+            "environment",
+            "clipboard",
+            "screenshot",
+            "keystrokes",
+            "transcript"
+          ]
+        }
+      },
+      "maxProperties": 64,
+      "additionalProperties": {
+        "type": ["string", "number", "boolean"],
+        "maxLength": 256
+      }
+    }
+  }
+}

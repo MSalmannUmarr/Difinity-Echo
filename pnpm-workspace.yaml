@@ -1,0 +1,11 @@
+packages:
+  - apps/*
+  - packages/*
+
+# Fail installation when the running Node.js does not satisfy `engines`.
+engineStrict: true
+
+allowBuilds:
+  sharp: true
+  unrs-resolver: true
+  msw: false

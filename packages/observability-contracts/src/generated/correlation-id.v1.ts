@@ -1,0 +1,16 @@
+// GENERATED FILE - DO NOT EDIT. Source: schemas/correlation-id.v1.schema.json
+/* eslint-disable */
+
+/**
+ * Opaque identifier propagated across Edge, Data Platform, Middleware and Web for one request or operation. Carries no tenant, actor or payload information.
+ */
+export type CorrelationId = string
+
+export const correlationIdSchema = {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.difinity.ai/echo/observability/correlation-id.v1.schema.json",
+  "title": "CorrelationId",
+  "description": "Opaque identifier propagated across Edge, Data Platform, Middleware and Web for one request or operation. Carries no tenant, actor or payload information.",
+  "type": "string",
+  "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{7,127}$"
+} as const

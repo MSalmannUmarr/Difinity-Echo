@@ -1,0 +1,17 @@
+{
+  "schemaVersion": "0",
+  "eventId": "00000000-0000-4000-8000-000000000001",
+  "eventType": "synthetic.ai-session.started",
+  "occurredAt": "2026-01-15T09:30:00Z",
+  "idempotencyKey": "synthetic-collector:00000000-0000-4000-8000-000000000001",
+  "collector": {
+    "name": "synthetic-collector",
+    "version": "0.0.0"
+  },
+  "policyVersion": "0.0.0",
+  "attributes": {
+    "vendorPayload": {
+      "raw": "synthetic"
+    }
+  }
+}

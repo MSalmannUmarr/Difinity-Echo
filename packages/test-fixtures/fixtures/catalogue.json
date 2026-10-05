@@ -1,0 +1,198 @@
+[
+  {
+    "id": "canonical-events/valid/synthetic-session-started",
+    "file": "canonical-events/valid/synthetic-session-started.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Minimal synthetic event with allowlisted scalar metadata."
+  },
+  {
+    "id": "canonical-events/valid/synthetic-tool-completed",
+    "file": "canonical-events/valid/synthetic-tool-completed.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Synthetic tool event carrying only category, outcome and duration."
+  },
+  {
+    "id": "canonical-events/invalid/missing-idempotency-key",
+    "file": "canonical-events/invalid/missing-idempotency-key.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Retries cannot be deduplicated without an idempotency key."
+  },
+  {
+    "id": "canonical-events/invalid/unsupported-schema-version",
+    "file": "canonical-events/invalid/unsupported-schema-version.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Unknown schema versions are rejected, not guessed."
+  },
+  {
+    "id": "canonical-events/invalid/malformed-event-id",
+    "file": "canonical-events/invalid/malformed-event-id.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Event identifiers must be UUIDs."
+  },
+  {
+    "id": "canonical-events/invalid/nested-attribute-object",
+    "file": "canonical-events/invalid/nested-attribute-object.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "v0 attributes are scalar only; nested vendor payloads are not forwarded."
+  },
+  {
+    "id": "prohibited-content/top-level-prompt",
+    "file": "prohibited-content/top-level-prompt.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Prompt text outside the closed envelope is rejected."
+  },
+  {
+    "id": "prohibited-content/attribute-named-prompt",
+    "file": "prohibited-content/attribute-named-prompt.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Attribute names denoting prohibited content are rejected (defence in depth)."
+  },
+  {
+    "id": "prohibited-content/attribute-named-file-path",
+    "file": "prohibited-content/attribute-named-file-path.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Raw file paths are prohibited outbound content."
+  },
+  {
+    "id": "prohibited-content/attribute-named-command",
+    "file": "prohibited-content/attribute-named-command.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Raw commands are prohibited outbound content."
+  },
+  {
+    "id": "prohibited-content/attribute-named-transcript",
+    "file": "prohibited-content/attribute-named-transcript.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Transcripts are prohibited outbound content."
+  },
+  {
+    "id": "prohibited-content/known-gap-content-in-innocuous-attribute",
+    "file": "prohibited-content/known-gap-content-in-innocuous-attribute.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "KNOWN GAP: prohibited content placed in an innocuously named attribute passes the structural envelope. Only the M1 local allowlist processor can block it; this fixture must become a rejection test there."
+  },
+  {
+    "id": "tenant-isolation/event-claims-tenant",
+    "file": "tenant-isolation/event-claims-tenant.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Tenant identity is derived at authenticated admission; a payload tenant claim is rejected."
+  },
+  {
+    "id": "tenant-isolation/event-claims-tenant-in-attributes",
+    "file": "tenant-isolation/event-claims-tenant-in-attributes.json",
+    "contract": "https://contracts.difinity.ai/echo/events/canonical-event-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "KNOWN GAP: a tenant-like attribute is structurally accepted; admission (M1-07) must ignore payload tenant claims and derive tenancy from enrollment credentials."
+  },
+  {
+    "id": "tenant-isolation/query-request-claims-tenant",
+    "file": "tenant-isolation/query-request-claims-tenant.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-request-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Query requests carry no tenant claim; the Query API derives tenant scope from the authenticated call."
+  },
+  {
+    "id": "admission/accepted",
+    "file": "admission/accepted.json",
+    "contract": "https://contracts.difinity.ai/echo/admission/admission-acknowledgement.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Durable acceptance acknowledgement."
+  },
+  {
+    "id": "admission/duplicate",
+    "file": "admission/duplicate.json",
+    "contract": "https://contracts.difinity.ai/echo/admission/admission-acknowledgement.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Idempotent replay of an already accepted logical event."
+  },
+  {
+    "id": "admission/rejected-without-reason",
+    "file": "admission/rejected-without-reason.json",
+    "contract": "https://contracts.difinity.ai/echo/admission/admission-acknowledgement.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "A rejection must carry a typed reason."
+  },
+  {
+    "id": "query/response-success",
+    "file": "query/response-success.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-response-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Success carries data."
+  },
+  {
+    "id": "query/response-absent",
+    "file": "query/response-absent.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-response-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Successful absence is explicit and carries no data."
+  },
+  {
+    "id": "query/response-failure",
+    "file": "query/response-failure.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-response-envelope.v0.schema.json",
+    "expectation": "valid",
+    "reason": "Failure carries a typed safe error."
+  },
+  {
+    "id": "query/response-failure-hidden-as-empty-success",
+    "file": "query/response-failure-hidden-as-empty-success.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-response-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Success without data cannot be used to conceal a failure."
+  },
+  {
+    "id": "query/response-failure-with-stack-trace",
+    "file": "query/response-failure-with-stack-trace.json",
+    "contract": "https://contracts.difinity.ai/echo/query/query-response-envelope.v0.schema.json",
+    "expectation": "invalid",
+    "reason": "Errors cannot carry raw causes or stack traces."
+  },
+  {
+    "id": "health/liveness-alive",
+    "file": "health/liveness-alive.json",
+    "contract": "https://contracts.difinity.ai/echo/observability/service-health.v1.schema.json",
+    "expectation": "valid",
+    "reason": "Process liveness."
+  },
+  {
+    "id": "health/readiness-ready-with-unimplemented-optional-boundary",
+    "file": "health/readiness-ready-with-unimplemented-optional-boundary.json",
+    "contract": "https://contracts.difinity.ai/echo/observability/service-readiness.v1.schema.json",
+    "expectation": "valid",
+    "reason": "Ready while optional boundaries are explicitly not implemented."
+  },
+  {
+    "id": "health/readiness-not-ready-required-dependency",
+    "file": "health/readiness-not-ready-required-dependency.json",
+    "contract": "https://contracts.difinity.ai/echo/observability/service-readiness.v1.schema.json",
+    "expectation": "valid",
+    "reason": "Not ready with a safe failure classification."
+  },
+  {
+    "id": "health/readiness-leaks-raw-cause",
+    "file": "health/readiness-leaks-raw-cause.json",
+    "contract": "https://contracts.difinity.ai/echo/observability/service-readiness.v1.schema.json",
+    "expectation": "invalid",
+    "reason": "Raw error details are not part of the readiness contract."
+  },
+  {
+    "id": "health/liveness-unknown-component",
+    "file": "health/liveness-unknown-component.json",
+    "contract": "https://contracts.difinity.ai/echo/observability/service-health.v1.schema.json",
+    "expectation": "invalid",
+    "reason": "Only the four Echo applications report health."
+  }
+]

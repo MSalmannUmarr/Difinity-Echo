@@ -1,0 +1,11 @@
+{
+  "schemaVersion": "0",
+  "correlationId": "synthetic-correlation-0008",
+  "outcome": "failure",
+  "error": {
+    "code": "unexpected-defect",
+    "message": "Unexpected failure.",
+    "correlationId": "synthetic-correlation-0008",
+    "stack": "SyntheticError: not real\n    at synthetic (synthetic.ts:1:1)"
+  }
+}

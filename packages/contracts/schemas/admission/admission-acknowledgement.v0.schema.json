@@ -1,0 +1,43 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.difinity.ai/echo/admission/admission-acknowledgement.v0.schema.json",
+  "title": "AdmissionAcknowledgement",
+  "description": "DRAFT (v0). Response to an admission attempt. 'accepted' may only be returned after durable acceptance; 'duplicate' signals an idempotent replay of an already accepted logical event. The enrollment/admission contract is finalised in M1-06.",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schemaVersion", "eventId", "disposition", "correlationId", "respondedAt"],
+  "properties": {
+    "schemaVersion": { "const": "0" },
+    "eventId": { "type": "string", "format": "uuid" },
+    "disposition": { "type": "string", "enum": ["accepted", "duplicate", "rejected"] },
+    "correlationId": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{7,127}$"
+    },
+    "respondedAt": { "type": "string", "format": "date-time" },
+    "rejection": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["code", "message"],
+      "properties": {
+        "code": {
+          "type": "string",
+          "enum": [
+            "invalid-request",
+            "unauthenticated",
+            "forbidden",
+            "rate-limited",
+            "schema-incompatible",
+            "policy-incompatible",
+            "dependency-unavailable",
+            "unexpected-defect"
+          ]
+        },
+        "message": { "type": "string", "minLength": 1, "maxLength": 300 }
+      }
+    }
+  },
+  "if": { "properties": { "disposition": { "const": "rejected" } } },
+  "then": { "required": ["rejection"] },
+  "else": { "not": { "required": ["rejection"] } }
+}

@@ -1,0 +1,6 @@
+{
+  "schemaVersion": "0",
+  "correlationId": "synthetic-correlation-0001",
+  "query": "data-health.ingestion",
+  "tenantId": "synthetic-tenant-b"
+}

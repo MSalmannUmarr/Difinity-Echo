@@ -1,0 +1,39 @@
+// GENERATED FILE - DO NOT EDIT. Source: schemas/common/error-code.v1.schema.json
+/* eslint-disable */
+
+/**
+ * Typed, client-safe classification of an expected failure (implementation brief §13.2). Successful absence is NOT an error and is represented by the query response outcome 'absent'.
+ */
+export type ErrorCode =
+  | "invalid-request"
+  | "unauthenticated"
+  | "forbidden"
+  | "not-found"
+  | "insufficient-evidence"
+  | "stale-or-immature-data"
+  | "dependency-unavailable"
+  | "rate-limited"
+  | "schema-incompatible"
+  | "policy-incompatible"
+  | "unexpected-defect"
+
+export const errorCodeSchema = {
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://contracts.difinity.ai/echo/common/error-code.v1.schema.json",
+  "title": "ErrorCode",
+  "description": "Typed, client-safe classification of an expected failure (implementation brief §13.2). Successful absence is NOT an error and is represented by the query response outcome 'absent'.",
+  "type": "string",
+  "enum": [
+    "invalid-request",
+    "unauthenticated",
+    "forbidden",
+    "not-found",
+    "insufficient-evidence",
+    "stale-or-immature-data",
+    "dependency-unavailable",
+    "rate-limited",
+    "schema-incompatible",
+    "policy-incompatible",
+    "unexpected-defect"
+  ]
+} as const
